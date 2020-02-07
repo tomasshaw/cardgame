@@ -1,0 +1,64 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"extends": ["prettier"],
+	"plugins": [
+		"prettier",
+		"react"
+	],
+	"rules": {
+		"strict": 0,
+		"no-const-assign": "warn",
+		"no-this-before-super": "warn",
+		"no-undef": "warn",
+		"no-invalid-this": 0,
+		"no-unreachable": "warn",
+		"no-unused-vars": "off",
+		"constructor-super": "warn",
+		"valid-typeof": "warn",
+		"prettier/prettier": [
+			"error",
+			{
+				"useTabs":true,
+				"singleQuote":true,
+				"trailingComma":"es5",
+				"bracketSpacing":true,
+				"jsxBracketSameLine":false,
+				"arrowParens":"avoid",
+				"requirePragma":false,
+				"insertPragma":false,
+				"printWidth": 80,
+				"semi": true
+			}
+		],
+		"react/jsx-filename-extension": [
+			"error",
+			{
+				"extensions": [
+					".js",
+					".jsx"
+				]
+			}
+		],
+		"import/no-extraneous-dependencies": [
+			"off"
+		],
+		"react/prefer-stateless-function": [
+			"off"
+		]
+	}
+}
