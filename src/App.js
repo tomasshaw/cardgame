@@ -7,7 +7,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Login from './components/login';
 import AppBar from './components/AppBar';
 import GameView from './views/GameView';
-import { PrivateRoute } from './components/helpers/PrivateRoute';
+import { PrivateRoute } from './helpers/PrivateRoute';
 
 const theme = createMuiTheme({
 	typography: {
