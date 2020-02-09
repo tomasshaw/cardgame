@@ -12,12 +12,19 @@ const styles = theme => ({
 });
 
 function GameView(props) {
+	const { setGameState, classes } = props;
 	console.log(props);
 	useEffect(() => {
+		const gameName = localStorage.getItem('user');
+		console.log(gameName);
 		axios
-			.post('http://game.bons.me/api/games', { name: 'testeoHardcodeado' })
+			.post('http://game.bons.me/api/games', { name: gameName })
 			//.post('http://game.bons.me/api/game', { name: props.gameState.name })
-			.then(res => console.log(res.data));
+			.then(res => {
+				//Agregar validaciones
+				setGameState(res.data);
+				console.log(res.data);
+			});
 	}, []);
 	return (
 		<>

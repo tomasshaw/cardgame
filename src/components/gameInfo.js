@@ -8,7 +8,6 @@ const styles = theme => ({
 });
 
 function GameInfo(props) {
-	console.log(props);
 	return (
 		<div>
 			<p>GameInfo</p>
