@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Css
 import './App.css';
@@ -59,6 +59,7 @@ const styles = theme => ({
 
 function App(props) {
 	const { classes } = props;
+	const [gameState, setGameState] = useState({});
 	return (
 		<Router>
 			<ThemeProvider theme={theme}>
@@ -67,9 +68,32 @@ function App(props) {
 					<div className={classes.root}>
 						<AppBar />
 						<Switch>
-							<Route path="/login" component={Login} />
-							<PrivateRoute path="/game" component={GameView} />
-							<Route path="/" component={Login} />
+							<Route
+								path="/login"
+								render={props => (
+									<Login
+										{...props}
+										//gameState={gameState}
+										setGameState={setGameState}
+									/>
+								)}
+							/>
+							<PrivateRoute
+								path="/game"
+								component={GameView}
+								gameState={gameState}
+								setGameState={setGameState}
+							/>
+							<Route
+								path="/"
+								render={props => (
+									<Login
+										{...props}
+										//gameState={gameState}
+										setGameState={setGameState}
+									/>
+								)}
+							/>
 							<Login />
 						</Switch>
 					</div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -28,10 +28,15 @@ const styles = theme => ({
 });
 
 function Login(props) {
-	const { classes } = props;
+	const { classes, setGameState } = props;
 	const [name, setName] = useState('');
 	const [error, setError] = useState(false);
 	const [gameCreated, setGameCreated] = useState(false);
+
+	useEffect(() => {
+		console.log(props);
+		setGameState({});
+	}, []);
 
 	const validateOnSubmit = () => {
 		if (name.length == 0 || !name || !name.trim() || name.length > 20) {
@@ -40,12 +45,14 @@ function Login(props) {
 		}
 		return true;
 	};
+
 	const handleOnSubmit = e => {
 		e.preventDefault();
 		if (!validateOnSubmit()) return;
 		localStorage.setItem('user', name);
 		setGameCreated(true);
 	};
+
 	const handleOnNameChange = e => {
 		setName(e.target.value);
 		error && setError(false);
