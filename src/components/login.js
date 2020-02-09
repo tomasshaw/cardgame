@@ -52,7 +52,9 @@ function Login(props) {
 	};
 
 	if (gameCreated) {
-		return <Redirect to={{ pathname: '/game' }} />;
+		return (
+			<Redirect to={{ pathname: '/game', state: { from: props.location } }} />
+		);
 	}
 
 	return (

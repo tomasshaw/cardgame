@@ -22,7 +22,7 @@ import backgroundImage from './images/backgroundImage.jpg';
 //
 //NOTAS:
 //  hearthstone estilos:
-//		typography h1 : fontFamily: Belwe Bold;
+//		typography h1 : fontFamily: Belwe Bold; // Es privado fuck me
 //		                letterSpacing: -.5px;
 //		                textShadow: 0 2px 4px rgba(0,0,0,.5);
 
