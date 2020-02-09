@@ -17,10 +17,12 @@ const useStyles = makeStyles(theme => ({
 	},
 	title: {
 		flexGrow: 1,
-		fontFamily: 'Sigmar One',
-		fontSize: '38px',
+		//fontFamily: 'Baloo Bhaijaan',
+		fontFamily: 'Carter One',
+		//fontFamily: 'Sigmar One',
+		fontSize: '40px',
 		color: '#fff',
-		letterSpacing: '-.5px',
+		//letterSpacing: '-.5px',
 		textShadow: '0 2px 4px rgba(0,0,0,.5)',
 	},
 	navBar: {
@@ -36,7 +38,7 @@ export default function ButtonAppBar() {
 			<AppBar position="static">
 				<Toolbar className={classes.navBar}>
 					<Typography variant="h6" className={classes.title}>
-						NOT Hearthstone
+						Not Hearthstone
 					</Typography>
 				</Toolbar>
 			</AppBar>

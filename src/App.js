@@ -5,7 +5,7 @@ import React from 'react';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import grey from '@material-ui/core/colors/grey';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 //import Lato from './components/fonts/Lato-Regular.ttf';
 // Plugins
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -16,6 +16,7 @@ import Login from './components/login';
 import AppBar from './components/AppBar';
 import GameView from './views/GameView';
 import { PrivateRoute } from './helpers/PrivateRoute';
+import backgroundImage from './images/backgroundImage.jpg';
 
 //Todo: Configurar webpack, dejar de usar rutas relativas
 //
@@ -29,33 +30,30 @@ const theme = createMuiTheme({
 	palette: {
 		type: 'dark',
 		primary: {
-			// light: will be calculated from palette.primary.main,
-			main: '#fcd144',
-			// dark: will be calculated from palette.primary.main,
-			// contrastText: will be calculated to contrast with palette.primary.main
+			main: '#f1d4ab',
+			//main: '#fcd144',
 		},
 		secondary: {
-			//light: '#0066ff',
 			main: '#00aeff',
-			// dark: will be calculated from palette.secondary.main,
-			//contrastText: '#ffcc00',
 		},
-		// error: will use the default color
 		background: {
-			dark: grey[900],
+			default: blueGrey[900],
+			dark: blueGrey[900],
 		},
 	},
 
 	typography: {
-		fontFamily: 'Lato',
+		fontFamily: 'Open Sans',
 	},
 });
 
 const styles = theme => ({
 	root: {
+		backgroundImage: `url(${backgroundImage})`,
+		backgroundSize: 'auto',
 		//display: 'flex',
-		height: '100%',
-		width: '100%',
+		height: '100vh',
+		width: '100vw',
 	},
 });
 
