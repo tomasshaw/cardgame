@@ -27,7 +27,8 @@ function Login(props) {
 		<>
 			<div className={classes.root}>
 				<div className={classes.loginWrapper}>
-					<Typography variant="h3">Welcome to NOT Hearthstone</Typography>
+					<Typography variant="h6">Welcome to</Typography>
+					<Typography variant="h3">NOT Hearthstone</Typography>
 					<TextField
 						label="Choose Name"
 						type="text"
