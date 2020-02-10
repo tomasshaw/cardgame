@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Entity from '../components/Entity';
 import GameCard from '../components/gameCard';
 import GameInfo from '../components/gameInfo';
 import axios from 'axios';
 
 const styles = theme => ({
-	root: {
-		width: '100%',
+	gameRoot: {
+		width: '75%',
+		maxWidth: '600px',
+		margin: 'auto',
+		marginTop: '100px',
+		//width: '100%',
 	},
+	notCardsWrapper: {},
+	entityWrapper: {},
+	gameInfoWrapper: {},
 });
 
 const baseUrl = 'http://game.bons.me/api/';
-
-//function playerReducer(state, action){
-//	switch(action.type){
-//		case 'addPlayerHealth':
-//	}
-//}
 
 function GameView(props) {
 	const { classes } = props;
@@ -117,11 +119,55 @@ function GameView(props) {
 
 	return (
 		<>
-			<Entity entity={monster} />
-			<Entity entity={player} />
-			{cards.length > 0 &&
-				cards.map(card => <GameCard key={card.id} card={card} />)}
-			<GameInfo />
+			<Grid
+				container
+				justify="center"
+				alignItems="center"
+				direction="column"
+				className={classes.gameRoot}
+				spacing={2}
+			>
+				<Grid
+					container
+					justify="center"
+					alignItems="flex-start"
+					direction="row"
+					className={classes.notCardsWrapper}
+				>
+					<Grid
+						container
+						direction="column"
+						xs={8}
+						className={classes.entityWrapper}
+					>
+						<Grid item>
+							<Entity entity={monster} />
+						</Grid>
+						<Grid item>
+							<Entity entity={player} />
+						</Grid>
+					</Grid>
+					<Grid
+						container
+						xs={4}
+						justify="center"
+						alignItems="center"
+						className={classes.gameInfoWrapper}
+					>
+						<Grid item>
+							<GameInfo />
+						</Grid>
+					</Grid>
+				</Grid>
+				<Grid container justify="center" spacing={3}>
+					{cards.length > 0 &&
+						cards.map(card => (
+							<Grid item xs={4}>
+								<GameCard key={card.id} card={card} />
+							</Grid>
+						))}
+				</Grid>
+			</Grid>
 		</>
 	);
 }
