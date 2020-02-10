@@ -162,8 +162,8 @@ function GameView(props) {
 				<Grid container justify="center" spacing={3}>
 					{cards.length > 0 &&
 						cards.map(card => (
-							<Grid item xs={4}>
-								<GameCard key={card.id} card={card} />
+							<Grid key={card.id} item xs={4}>
+								<GameCard card={card} />
 							</Grid>
 						))}
 				</Grid>
