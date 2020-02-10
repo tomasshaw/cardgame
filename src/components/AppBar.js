@@ -17,7 +17,6 @@ const useStyles = makeStyles(theme => ({
 		marginRight: theme.spacing(2),
 	},
 	title: {
-		//flexGrow: 1,
 		width: '60%',
 		margin: 'auto',
 		fontFamily: 'Carter One',
@@ -30,10 +29,8 @@ const useStyles = makeStyles(theme => ({
 	},
 	filler: {
 		width: '20%',
-		//flexGrow: 1,
 	},
 	button: {
-		//flexGrow: 1,
 		width: '20%',
 		color: '#fff',
 		textShadow: '0 2px 4px rgba(0,0,0,.5)',

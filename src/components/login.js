@@ -28,15 +28,15 @@ const styles = theme => ({
 });
 
 function Login(props) {
-	const { classes, setGameState } = props;
+	const { classes } = props;
 	const [name, setName] = useState('');
 	const [error, setError] = useState(false);
 	const [gameCreated, setGameCreated] = useState(false);
 
-	useEffect(() => {
-		console.log(props);
-		setGameState({});
-	}, []);
+	//useEffect(() => {
+	//	console.log(props);
+	//	setGameState({});
+	//}, []);
 
 	const validateOnSubmit = () => {
 		if (name.length == 0 || !name || !name.trim() || name.length > 20) {

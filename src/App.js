@@ -59,7 +59,6 @@ const styles = theme => ({
 
 function App(props) {
 	const { classes } = props;
-	const [gameState, setGameState] = useState({});
 	return (
 		<Router>
 			<ThemeProvider theme={theme}>
@@ -74,15 +73,15 @@ function App(props) {
 									<Login
 										{...props}
 										//gameState={gameState}
-										setGameState={setGameState}
+										//setGameState={setGameState}
 									/>
 								)}
 							/>
 							<PrivateRoute
 								path="/game"
 								component={GameView}
-								gameState={gameState}
-								setGameState={setGameState}
+								//	gameState={gameState}
+								//	setGameState={setGameState}
 							/>
 							<Route
 								path="/"
@@ -90,7 +89,7 @@ function App(props) {
 									<Login
 										{...props}
 										//gameState={gameState}
-										setGameState={setGameState}
+										//setGameState={setGameState}
 									/>
 								)}
 							/>
