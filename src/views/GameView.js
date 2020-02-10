@@ -42,6 +42,9 @@ function GameView(props) {
 	}, [gameState.currentTurn]);
 
 	useEffect(() => {
+		if (!!cards) {
+			getCards(player.id);
+		}
 		console.log(player);
 	}, [player]);
 
@@ -52,6 +55,15 @@ function GameView(props) {
 	useEffect(() => {
 		console.log(cards);
 	}, [cards]);
+
+	const playNextTurn = cardId => {
+		axios
+			.post(baseUrl + 'games/' + gameState.id, { card: cardId })
+			.then(res => {
+				if (!res.data) return;
+				console.log(res.data);
+			});
+	};
 
 	const getGame = gameId => {
 		if (!gameId) return;
@@ -105,8 +117,10 @@ function GameView(props) {
 
 	return (
 		<>
-			<Entity />
-			<GameCard />
+			<Entity entity={monster} />
+			<Entity entity={player} />
+			{cards.length > 0 &&
+				cards.map(card => <GameCard key={card.id} card={card} />)}
 			<GameInfo />
 		</>
 	);
