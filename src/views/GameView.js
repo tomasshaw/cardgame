@@ -63,9 +63,7 @@ function GameView(props) {
 		const gameName = localStorage.getItem('user');
 		axios.post(baseUrl + 'games/', { name: gameName }).then(res => {
 			if (!res.data) return;
-			setGameState(res.data);
-			getPlayerFromGame(res.data.id);
-			getMonsterFromGame(res.data.id);
+			getAllInfo(res.data);
 		});
 		return () => localStorage.removeItem('user');
 	}, []);
@@ -84,11 +82,20 @@ function GameView(props) {
 
 	useEffect(() => {}, [cards]);
 
+	const getAllInfo = data => {
+		setGameState(data);
+		getPlayerFromGame(data.id);
+		getMonsterFromGame(data.id);
+	};
+
 	const playNextTurn = cardId => {
+		console.log('jugaste carta', cardId);
 		axios
-			.post(baseUrl + 'games/' + gameState.id, { card: cardId })
+			.post(baseUrl + 'games/' + gameState.id + '/next-turn', { card: cardId })
 			.then(res => {
 				if (!res.data) return;
+				//console.log(res.data);
+				getAllInfo(res.data.game);
 			});
 	};
 
@@ -186,7 +193,7 @@ function GameView(props) {
 					{cards.length > 0 &&
 						cards.map(card => (
 							<Grid item key={card.id} xs={4}>
-								<GameCard card={card} />
+								<GameCard card={card} play={playNextTurn} />
 							</Grid>
 						))}
 				</Grid>

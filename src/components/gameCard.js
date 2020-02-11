@@ -4,10 +4,6 @@ import { Paper, Typography, SvgIcon, Slide } from '@material-ui/core';
 import { Security, Favorite } from '@material-ui/icons';
 
 const styles = theme => ({
-	'@-webkit-keyframes action': {
-		'0%': { transform: 'translateY(0)' },
-		'100%': { transform: 'translateY(-10px)' },
-	},
 	'@keyframes action': {
 		'0%': { transform: 'translateY(0)' },
 		'100%': { transform: 'translateY(-10px)' },
@@ -19,7 +15,7 @@ const styles = theme => ({
 			margin: 'auto',
 			marginTop: theme.spacing(5),
 			width: theme.spacing(16),
-			height: theme.spacing(20),
+			height: theme.spacing(18),
 		},
 		animationName: '$action',
 		animationDuration: '0.75s',
@@ -52,11 +48,11 @@ function CardIcon({ effect }) {
 }
 
 function GameCard(props) {
-	const { classes, card } = props;
+	const { classes, card, play } = props;
 	const { value, effect, id } = card;
 
 	const onPlayCard = () => {
-		alert(`jugaste carta de ${effect}, haciendo ${value}`);
+		play(id);
 	};
 
 	return (
