@@ -27,6 +27,13 @@ const styles = theme => ({
 	paperDiv: {
 		border: '2px solid rgba(0, 0, 0, 0.5)',
 	},
+	disabledPaper: {
+		opacity: '0.4',
+		border: '2px solid rgba(0, 0, 0, 0.5)',
+	},
+	chosen: {
+		border: '3px solid rgba(255, 0, 0, 0.6)',
+	},
 });
 
 function CardIcon({ effect }) {
@@ -48,17 +55,29 @@ function CardIcon({ effect }) {
 }
 
 function GameCard(props) {
-	const { classes, card, play } = props;
+	const { classes, card, sendCard, chosenCardId, disabled = true } = props;
 	const { value, effect, id } = card;
 
-	const onPlayCard = () => {
-		play(id);
+	const onPlayCard = e => {
+		e.preventDefault();
+		if (disabled || !sendCard) return;
+		sendCard(id);
 	};
 
 	return (
 		<Slide direction="up" in={true} mountOnEnter unmountOnExit>
 			<div className={classes.root}>
-				<Paper elevation={8} onClick={onPlayCard} className={classes.paperDiv}>
+				<Paper
+					elevation={chosenCardId == id ? 2 : 8}
+					onClick={onPlayCard}
+					className={
+						disabled
+							? classes.disabledPaper
+							: chosenCardId == id
+							? classes.chosen
+							: classes.paperDiv
+					}
+				>
 					<div className={classes.cardDiv}>
 						<Typography variant="h3">{value}</Typography>
 						<br />

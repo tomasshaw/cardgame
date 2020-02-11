@@ -44,7 +44,7 @@ function Entity(props) {
 				<div className={classes.details}>
 					<CardContent className={classes.content}>
 						<Typography component="h5" variant="h5" className={classes.nameOf}>
-							{name}
+							{name.charAt(0).toUpperCase() + name.slice(1)}
 						</Typography>
 						<Typography variant="subtitle1" color="textSecondary">
 							Health: {hp} / {maxHp}

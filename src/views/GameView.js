@@ -58,6 +58,8 @@ function GameView(props) {
 	const [player, setPlayer] = useState({});
 	const [monster, setMonster] = useState({});
 	const [cards, setCards] = useState({});
+	const [chosenCardId, setChosenCardId] = useState('');
+	const [disabled, setDisabled] = useState(false);
 
 	useEffect(() => {
 		const gameName = localStorage.getItem('user');
@@ -73,7 +75,7 @@ function GameView(props) {
 	}, [gameState.currentTurn]);
 
 	useEffect(() => {
-		if (!!cards) {
+		if (Object.keys(cards).length === 0) {
 			getCards(player.id);
 		}
 	}, [player]);
@@ -86,6 +88,15 @@ function GameView(props) {
 		setGameState(data);
 		getPlayerFromGame(data.id);
 		getMonsterFromGame(data.id);
+	};
+
+	const sendCard = cardId => {
+		if (!cardId || cardId.length == 0 || !cardId.trim()) {
+			console.log('cardId no valido', cardId);
+			return;
+		}
+		console.log(cardId);
+		setChosenCardId(cardId);
 	};
 
 	const playNextTurn = cardId => {
@@ -140,6 +151,7 @@ function GameView(props) {
 		if (!entityId) return;
 		axios.get(baseUrl + 'players/' + entityId + '/cards').then(res => {
 			if (!res.data) return;
+			console.log(res.data);
 			setCards(res.data);
 		});
 	};
@@ -193,7 +205,12 @@ function GameView(props) {
 					{cards.length > 0 &&
 						cards.map(card => (
 							<Grid item key={card.id} xs={4}>
-								<GameCard card={card} play={playNextTurn} />
+								<GameCard
+									card={card}
+									sendCard={sendCard}
+									chosenCardId={chosenCardId}
+									disabled={disabled}
+								/>
 							</Grid>
 						))}
 				</Grid>
