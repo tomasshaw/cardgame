@@ -12,10 +12,13 @@ const styles = theme => ({
 		width: '75%',
 		maxWidth: '600px',
 		margin: 'auto',
-		marginTop: '100px',
+		marginTop: theme.spacing(3),
 		//width: '100%',
 	},
 	notCardsWrapper: {},
+	cardsWrapper: {
+		marginTop: theme.spacing(2),
+	},
 	entityWrapper: {},
 	gameInfoWrapper: {},
 });
@@ -172,10 +175,16 @@ function GameView(props) {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid container justify="center" spacing={3}>
+				<Grid
+					container
+					justify="center"
+					alignItems="center"
+					className={classes.cardsWrapper}
+					spacing={1}
+				>
 					{cards.length > 0 &&
 						cards.map(card => (
-							<Grid key={card.id} item xs={4}>
+							<Grid item key={card.id} item xs={4}>
 								<GameCard card={card} />
 							</Grid>
 						))}
