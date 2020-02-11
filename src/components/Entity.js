@@ -7,9 +7,8 @@ import heroImage from '../images/hero.jpg';
 
 const styles = theme => ({
 	root: {
-		//width: '100%',
 		display: 'flex',
-		//margin: 0,
+		border: '1px solid rgba(0, 0, 0, 0.3)',
 	},
 	details: {
 		width: '100%',
@@ -23,10 +22,12 @@ const styles = theme => ({
 		//height: 140,
 		width: 150,
 	},
+	nameOf: {
+		textShadow: '0 2px 4px rgba(0,0,0,.5)',
+	},
 });
 
 function Entity(props) {
-	console.log(props);
 	const { classes, entity } = props;
 	const {
 		id = 0,
@@ -38,11 +39,11 @@ function Entity(props) {
 	} = entity;
 	return (
 		<Fade in={true}>
-			<Card className={classes.root}>
+			<Card elevation={5} className={classes.root}>
 				<CardMedia image={image} className={classes.media} title={name} />
 				<div className={classes.details}>
 					<CardContent className={classes.content}>
-						<Typography component="h5" variant="h5">
+						<Typography component="h5" variant="h5" className={classes.nameOf}>
 							{name}
 						</Typography>
 						<Typography variant="subtitle1" color="textSecondary">

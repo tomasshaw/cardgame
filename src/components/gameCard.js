@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
-import { Paper, Typography, SvgIcon } from '@material-ui/core';
+import { Paper, Typography, SvgIcon, Slide } from '@material-ui/core';
 import { Security, Favorite } from '@material-ui/icons';
 
 const styles = theme => ({
+	'@-webkit-keyframes action': {
+		'0%': { transform: 'translateY(0)' },
+		'100%': { transform: 'translateY(-10px)' },
+	},
+	'@keyframes action': {
+		'0%': { transform: 'translateY(0)' },
+		'100%': { transform: 'translateY(-10px)' },
+	},
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		'& > *': {
 			margin: 'auto',
+			marginTop: theme.spacing(5),
 			width: theme.spacing(16),
-			height: theme.spacing(16),
+			height: theme.spacing(20),
 		},
-		//width: '100%',
-		//height: '100%',
+		animationName: '$action',
+		animationDuration: '0.75s',
+		animationTimingFunction: 'ease-out',
+		animationIterationCount: 'infinite',
+		animationDirection: 'alternate-reverse',
+	},
+	cardDiv: {},
+	paperDiv: {
+		border: '2px solid rgba(0, 0, 0, 0.5)',
 	},
 });
 
@@ -40,18 +55,18 @@ function GameCard(props) {
 	const { classes, card } = props;
 	const { value, effect, id } = card;
 
-	console.log('cartas', props);
 	return (
-		<Fade in={true}>
+		<Slide direction="up" in={true} mountOnEnter unmountOnExit>
 			<div className={classes.root}>
-				<Paper>
-					<div className={classes.card}>
+				<Paper elevation={8} className={classes.paperDiv}>
+					<div className={classes.cardDiv}>
 						<Typography variant="h3">{value}</Typography>
+						<br />
 						<CardIcon effect={effect} />
 					</div>
 				</Paper>
 			</div>
-		</Fade>
+		</Slide>
 	);
 }
 

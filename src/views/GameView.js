@@ -6,14 +6,22 @@ import GameCard from '../components/gameCard';
 import GameInfo from '../components/gameInfo';
 import axios from 'axios';
 import { Divider } from '@material-ui/core';
+import backgroundGameImage from '../images/gameBackground.jpg';
 
 const styles = theme => ({
 	gameRoot: {
+		//backgroundColor: 'rgba(242, 195, 85, 0.3)',
+		backgroundImage: `url(${backgroundGameImage})`,
+		backgroundPositionX: '50%',
+		backgroundPositionY: 'center',
+		backgroundColor: 'rgb(241, 212, 171)',
+		padding: theme.spacing(4),
 		width: '75%',
 		maxWidth: '600px',
 		margin: 'auto',
 		marginTop: theme.spacing(3),
-		//width: '100%',
+		border: '5px solid rgba(0,0,0, 0.3)',
+		//border: '4px solid rgba(163, 142, 113, 0.5)',
 	},
 	notCardsWrapper: {},
 	cardsWrapper: {
@@ -24,7 +32,7 @@ const styles = theme => ({
 });
 
 function Entities({ player, monster }) {
-	if (!player || !monster) {
+	if (Object.keys(player).length === 0 || Object.keys(monster).length === 0) {
 		return null;
 	}
 	return (
@@ -68,34 +76,26 @@ function GameView(props) {
 		if (!!cards) {
 			getCards(player.id);
 		}
-		console.log(player);
 	}, [player]);
 
-	useEffect(() => {
-		console.log(monster);
-	}, [monster]);
+	useEffect(() => {}, [monster]);
 
-	useEffect(() => {
-		console.log(cards);
-	}, [cards]);
+	useEffect(() => {}, [cards]);
 
 	const playNextTurn = cardId => {
 		axios
 			.post(baseUrl + 'games/' + gameState.id, { card: cardId })
 			.then(res => {
 				if (!res.data) return;
-				console.log(res.data);
 			});
 	};
 
 	const getGame = gameId => {
 		if (!gameId) return;
-		console.log('getGame func');
 		axios.get(baseUrl + 'games/' + gameId).then(res => setGameState(res.data));
 	};
 
 	const getPlayerFromGame = gameId => {
-		console.log('getPlayerFromGame func');
 		if (!gameId) return;
 		axios.get(baseUrl + 'games/' + gameId + '/player').then(res => {
 			if (!res.data) return;
@@ -105,7 +105,6 @@ function GameView(props) {
 
 	const getPlayerById = entityId => {
 		if (!entityId) return;
-		console.log('getPlayerById func');
 		axios.get(baseUrl + 'players/' + entityId).then(res => {
 			if (!res.data) return;
 			setPlayer(res.data);
@@ -122,7 +121,6 @@ function GameView(props) {
 
 	const getMonsterById = entityId => {
 		if (!entityId) return;
-		console.log('getMonsterById func');
 		axios.get(baseUrl + 'monsters/' + entityId).then(res => {
 			if (!res.data) return;
 			setMonster(res.data);
@@ -131,7 +129,6 @@ function GameView(props) {
 
 	const getCards = entityId => {
 		if (!entityId) return;
-		console.log('getCards func');
 		axios.get(baseUrl + 'players/' + entityId + '/cards').then(res => {
 			if (!res.data) return;
 			setCards(res.data);
@@ -157,6 +154,7 @@ function GameView(props) {
 				>
 					<Grid
 						container
+						item
 						direction="column"
 						xs={8}
 						className={classes.entityWrapper}
@@ -165,6 +163,7 @@ function GameView(props) {
 					</Grid>
 					<Grid
 						container
+						item
 						xs={4}
 						justify="center"
 						alignItems="center"
@@ -184,7 +183,7 @@ function GameView(props) {
 				>
 					{cards.length > 0 &&
 						cards.map(card => (
-							<Grid item key={card.id} item xs={4}>
+							<Grid item key={card.id} xs={4}>
 								<GameCard card={card} />
 							</Grid>
 						))}
