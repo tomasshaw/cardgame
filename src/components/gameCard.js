@@ -55,10 +55,14 @@ function GameCard(props) {
 	const { classes, card } = props;
 	const { value, effect, id } = card;
 
+	const onPlayCard = () => {
+		alert(`jugaste carta de ${effect}, haciendo ${value}`);
+	};
+
 	return (
 		<Slide direction="up" in={true} mountOnEnter unmountOnExit>
 			<div className={classes.root}>
-				<Paper elevation={8} className={classes.paperDiv}>
+				<Paper elevation={8} onClick={onPlayCard} className={classes.paperDiv}>
 					<div className={classes.cardDiv}>
 						<Typography variant="h3">{value}</Typography>
 						<br />
