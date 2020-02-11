@@ -5,6 +5,7 @@ import Entity from '../components/Entity';
 import GameCard from '../components/gameCard';
 import GameInfo from '../components/gameInfo';
 import axios from 'axios';
+import { Divider } from '@material-ui/core';
 
 const styles = theme => ({
 	gameRoot: {
@@ -18,6 +19,23 @@ const styles = theme => ({
 	entityWrapper: {},
 	gameInfoWrapper: {},
 });
+
+function Entities({ player, monster }) {
+	if (!player || !monster) {
+		return null;
+	}
+	return (
+		<>
+			<Grid item>
+				<Entity monster entity={monster} />
+			</Grid>
+			<div style={{ marginTop: '3px', marginBottom: '3px' }} />
+			<Grid item>
+				<Entity player entity={player} />
+			</Grid>
+		</>
+	);
+}
 
 const baseUrl = 'http://game.bons.me/api/';
 
@@ -140,12 +158,7 @@ function GameView(props) {
 						xs={8}
 						className={classes.entityWrapper}
 					>
-						<Grid item>
-							<Entity entity={monster} />
-						</Grid>
-						<Grid item>
-							<Entity entity={player} />
-						</Grid>
+						<Entities player={player} monster={monster} />
 					</Grid>
 					<Grid
 						container

@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 import { CardMedia, Card, CardContent } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
+import heroImage from '../images/hero.jpg';
 
 const styles = theme => ({
 	root: {
@@ -11,6 +12,7 @@ const styles = theme => ({
 		//margin: 0,
 	},
 	details: {
+		width: '100%',
 		display: 'flex',
 		flexDirection: 'column',
 	},
@@ -26,27 +28,31 @@ const styles = theme => ({
 function Entity(props) {
 	console.log(props);
 	const { classes, entity } = props;
-	const { name, image } = entity;
-	console.log(image);
+	const {
+		id = 0,
+		name = '',
+		image = heroImage,
+		hp = 0,
+		maxHp = 0,
+		shield = 0,
+	} = entity;
 	return (
 		<Fade in={true}>
 			<Card className={classes.root}>
+				<CardMedia image={image} className={classes.media} title={name} />
 				<div className={classes.details}>
 					<CardContent className={classes.content}>
 						<Typography component="h5" variant="h5">
 							{name}
 						</Typography>
 						<Typography variant="subtitle1" color="textSecondary">
-							Health
+							Health: {hp} / {maxHp}
 						</Typography>
 						<Typography variant="subtitle1" color="textSecondary">
-							Armor
+							Armor: {shield}
 						</Typography>
 					</CardContent>
 				</div>
-				{!!image && (
-					<CardMedia image={image} className={classes.media} title={name} />
-				)}
 			</Card>
 		</Fade>
 	);
