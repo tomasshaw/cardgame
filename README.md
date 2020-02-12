@@ -1,4 +1,4 @@
-#CardGame
+# CardGame
 
 Jueves: 2hs.
 	Leer sobre GraphQL, Apollo, Flow.
@@ -13,4 +13,4 @@ Viernes: 1hs.
 Resto del tiempo: Desarrollo. Info en commits
 
 
-##Tiempo total aprox: 8hs.
+## Tiempo total aprox: 8hs.
