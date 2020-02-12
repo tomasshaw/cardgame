@@ -107,6 +107,10 @@ function GameView(props) {
 		if (!cardId || cardId.length == 0 || !cardId.trim()) {
 			return;
 		}
+		if (cardId === chosenCardId) {
+			setChosenCardId('');
+			return;
+		}
 		setChosenCardId(cardId);
 	};
 
@@ -214,6 +218,7 @@ function GameView(props) {
 					>
 						<Grid item>
 							<GameInfo
+								cardSelected={chosenCardId}
 								playNextTurn={playNextTurn}
 								disabled={fullDisabled}
 								gameState={gameState}
@@ -235,7 +240,6 @@ function GameView(props) {
 									card={card}
 									sendCard={sendCard}
 									chosenCardId={chosenCardId}
-									disabled={disabled}
 									disabled={fullDisabled || disabled}
 								/>
 							</Grid>

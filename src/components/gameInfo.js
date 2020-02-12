@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Fade, Button, Typography } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+import { green, lime } from '@material-ui/core/colors';
 
 const styles = theme => ({
 	root: {
+		//justifyContent: 'space-around',
 		padding: theme.spacing(1),
 		border: '2px solid rgba(0, 0, 0, 0.1)',
 		borderRadius: '5px',
@@ -12,10 +13,23 @@ const styles = theme => ({
 		height: '100%',
 	},
 	endTurnButton: {
+		backgroundColor: lime[600],
+		'&:hover': {
+			backgroundColor: lime[300],
+		},
+		border: '2px solid rgba(0,0,0, 0.3)',
+		width: 120,
+		height: 45,
+		//minWidth: 110,
+	},
+	sendCardButton: {
 		backgroundColor: green[600],
-		'&$hover': {
+		'&:hover': {
 			backgroundColor: green[300],
 		},
+		border: '1px solid rgba(0,0,0, 0.3)',
+		width: 120,
+		height: 45,
 	},
 	text: {
 		textShadow: '0 2px 4px rgba(0,0,0,.5)',
@@ -24,11 +38,12 @@ const styles = theme => ({
 });
 
 function GameInfo(props) {
-	const { classes, playNextTurn, gameState, disabled } = props;
+	const { classes, playNextTurn, gameState, disabled, cardSelected } = props;
 	if (Object.keys(gameState).length === 0) {
 		return null;
 	}
 	const { currentTurn, maxTurns } = gameState;
+	const cardIsSelected = cardSelected.length !== 0;
 	const endRound = e => {
 		e.preventDefault();
 		playNextTurn();
@@ -49,10 +64,12 @@ function GameInfo(props) {
 					disabled={disabled}
 					elevation={8}
 					variant="contained"
-					className={classes.endTurnButton}
+					className={
+						cardIsSelected ? classes.sendCardButton : classes.endTurnButton
+					}
 					onClick={endRound}
 				>
-					End Turn
+					{cardIsSelected ? 'Send Card' : 'End Turn'}
 				</Button>
 			</div>
 		</Fade>
