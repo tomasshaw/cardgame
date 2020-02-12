@@ -20,11 +20,13 @@ Resto del tiempo: Desarrollo. Info en commits
 
 TODO:
 
--Agregar Screenshots del juego en el readme (y hacer un readme en serio)
+- Agregar Screenshots del juego en el readme (y hacer un readme en serio)
 
--Agregar info del ataque del monster (Si estas en status='HORROR' no entendes xq las cartas estan desactivadas)
+- Agregar info del ataque del monster (Si estas en status='HORROR' no entendes xq las cartas estan desactivadas)
 
--Agregar estilos al end game modal (you win = bueno; you lose = malo, try again.)
+- Agregar estilos al end game modal (you win = bueno; you lose = malo, try again.)
+
+- Mobile breakpoints. Rompe en mobile viewport.
 
 
 
