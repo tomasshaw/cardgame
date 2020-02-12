@@ -5,7 +5,6 @@ import Entity from '../components/Entity';
 import GameCard from '../components/gameCard';
 import GameInfo from '../components/gameInfo';
 import axios from 'axios';
-import { Divider } from '@material-ui/core';
 import backgroundGameImage from '../images/gameBackground.jpg';
 
 const styles = theme => ({
@@ -95,12 +94,15 @@ function GameView(props) {
 			console.log('cardId no valido', cardId);
 			return;
 		}
-		console.log(cardId);
 		setChosenCardId(cardId);
 	};
 
 	const checkEnemyAttack = effect => {
 		console.log(effect);
+		console.log(effect.effect);
+		if (effect.effect == 'HORROR') {
+			setDisabled(true);
+		}
 	};
 
 	const playNextTurn = () => {
@@ -114,10 +116,9 @@ function GameView(props) {
 			})
 			.then(res => {
 				if (!res.data) return;
-				console.log(res.data);
+				setDisabled(false);
 				checkEnemyAttack(res.data.monsterEffect);
 				getAllInfo(res.data.game);
-				setDisabled(false);
 			});
 	};
 
@@ -162,7 +163,6 @@ function GameView(props) {
 		if (!entityId) return;
 		axios.get(baseUrl + 'players/' + entityId + '/cards').then(res => {
 			if (!res.data) return;
-			console.log(res.data);
 			setCards(res.data);
 		});
 	};
@@ -202,7 +202,7 @@ function GameView(props) {
 						className={classes.gameInfoWrapper}
 					>
 						<Grid item>
-							<GameInfo playNextTurn={playNextTurn} />
+							<GameInfo playNextTurn={playNextTurn} gameState={gameState} />
 						</Grid>
 					</Grid>
 				</Grid>

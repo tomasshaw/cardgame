@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Fade, Button } from '@material-ui/core';
+import { Fade, Button, Typography } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 
 const styles = theme => ({
@@ -17,7 +17,11 @@ const styles = theme => ({
 });
 
 function GameInfo(props) {
-	const { classes, playNextTurn } = props;
+	const { classes, playNextTurn, gameState } = props;
+	if (Object.keys(gameState).length === 0) {
+		return null;
+	}
+	const { currentTurn, maxTurns } = gameState;
 	const endRound = e => {
 		e.preventDefault();
 		playNextTurn();
@@ -30,10 +34,18 @@ function GameInfo(props) {
 					variant="contained"
 					className={classes.endTurnButton}
 					onClick={endRound}
-					//color="primary"
 				>
 					End Turn
 				</Button>
+				<Typography>
+					Turn {currentTurn} of {maxTurns}
+				</Typography>
+				<Typography>WIP</Typography>
+				<Typography>
+					TODO: CHECKEAR SI GAME END TURN == GAME CURRENT TURN checkear si
+					hpPlayer=0 estas 2 disparan loss checkear si hpMonster=0 triggerea win
+					modal da opcion a boton newgame
+				</Typography>
 			</div>
 		</Fade>
 	);
