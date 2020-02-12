@@ -99,14 +99,25 @@ function GameView(props) {
 		setChosenCardId(cardId);
 	};
 
-	const playNextTurn = cardId => {
-		console.log('jugaste carta', cardId);
+	const checkEnemyAttack = effect => {
+		console.log(effect);
+	};
+
+	const playNextTurn = () => {
+		const cartaElegida = chosenCardId;
+		console.log('jugaste carta', cartaElegida);
+		setChosenCardId('');
+		setDisabled(true);
 		axios
-			.post(baseUrl + 'games/' + gameState.id + '/next-turn', { card: cardId })
+			.post(baseUrl + 'games/' + gameState.id + '/next-turn', {
+				card: cartaElegida,
+			})
 			.then(res => {
 				if (!res.data) return;
-				//console.log(res.data);
+				console.log(res.data);
+				checkEnemyAttack(res.data.monsterEffect);
 				getAllInfo(res.data.game);
+				setDisabled(false);
 			});
 	};
 
@@ -191,7 +202,7 @@ function GameView(props) {
 						className={classes.gameInfoWrapper}
 					>
 						<Grid item>
-							<GameInfo />
+							<GameInfo playNextTurn={playNextTurn} />
 						</Grid>
 					</Grid>
 				</Grid>
