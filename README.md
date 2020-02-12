@@ -10,8 +10,7 @@ Viernes: 1hs.
 	Configuracion de nuevo install de Arch, neovim, zsh, y demas.
 	Se decidio salir del disenio aportado en el wireframe, y sacar estilos de Hearthstone.
 
-Sabado: 3hs.
-	Se avanzo sobre la pagina. (Ver commits)
+Resto del tiempo: Desarrollo. Info en commits
 
-Domingo: 2hs.
-	Se avanzo sobre la pagina. (Ver commits)
+
+##Tiempo total aprox: 8hs.
