@@ -6,15 +6,13 @@ import GameCard from '../components/gameCard';
 import GameInfo from '../components/gameInfo';
 import axios from 'axios';
 import backgroundGameImage from '../images/gameBackground.jpg';
+import EndGameModal from '../components/endGameModal';
 
 const styles = theme => ({
 	gameRoot: {
 		//backgroundColor: 'rgba(242, 195, 85, 0.3)',
 		backgroundImage: `url(${backgroundGameImage})`,
-		backgroundPositionX: '50%',
-		backgroundPositionY: 'center',
 		backgroundColor: 'rgb(241, 212, 171)',
-
 		padding: theme.spacing(4),
 		width: '75%',
 		maxWidth: '600px',
@@ -22,12 +20,11 @@ const styles = theme => ({
 		marginTop: theme.spacing(3),
 		border: '5px solid rgba(0,0,0, 0.3)',
 		borderRadius: '10px',
-		//border: '4px solid rgba(163, 142, 113, 0.5)',
 	},
-	notCardsWrapper: {},
 	cardsWrapper: {
 		marginTop: theme.spacing(2),
 	},
+	notCardsWrapper: {},
 	entityWrapper: {},
 	gameInfoWrapper: {},
 });
@@ -59,6 +56,11 @@ function GameView(props) {
 	const [cards, setCards] = useState({});
 	const [chosenCardId, setChosenCardId] = useState('');
 	const [disabled, setDisabled] = useState(false);
+	const [fullDisabled, setFullDisabled] = useState(false);
+	const [gameEnded, setGameEnded] = useState({
+		ended: false,
+		playerWon: false,
+	});
 
 	useEffect(() => {
 		const gameName = localStorage.getItem('user');
@@ -70,18 +72,30 @@ function GameView(props) {
 	}, []);
 
 	useEffect(() => {
+		if (parseInt(gameState.currentTurn) === parseInt(gameState.maxTurns)) {
+			setGameEnded({ ended: true, playerWon: false });
+		}
 		getCards(player.id);
 	}, [gameState.currentTurn]);
 
 	useEffect(() => {
+		if (player.hp == 0) {
+			setGameEnded({ ended: true, playerWon: false });
+		}
 		if (Object.keys(cards).length === 0) {
 			getCards(player.id);
 		}
 	}, [player]);
 
-	useEffect(() => {}, [monster]);
+	useEffect(() => {
+		if (monster.hp == 0) {
+			setGameEnded({ ended: true, playerWon: true });
+		}
+	}, [monster]);
 
-	useEffect(() => {}, [cards]);
+	useEffect(() => {
+		gameEnded.ended && setFullDisabled(true);
+	}, [gameEnded]);
 
 	const getAllInfo = data => {
 		setGameState(data);
@@ -91,15 +105,12 @@ function GameView(props) {
 
 	const sendCard = cardId => {
 		if (!cardId || cardId.length == 0 || !cardId.trim()) {
-			console.log('cardId no valido', cardId);
 			return;
 		}
 		setChosenCardId(cardId);
 	};
 
 	const checkEnemyAttack = effect => {
-		console.log(effect);
-		console.log(effect.effect);
 		if (effect.effect == 'HORROR') {
 			setDisabled(true);
 		}
@@ -107,15 +118,15 @@ function GameView(props) {
 
 	const playNextTurn = () => {
 		const cartaElegida = chosenCardId;
-		console.log('jugaste carta', cartaElegida);
 		setChosenCardId('');
-		setDisabled(true);
+		setFullDisabled(true);
 		axios
 			.post(baseUrl + 'games/' + gameState.id + '/next-turn', {
 				card: cartaElegida,
 			})
 			.then(res => {
 				if (!res.data) return;
+				setFullDisabled(false);
 				setDisabled(false);
 				checkEnemyAttack(res.data.monsterEffect);
 				getAllInfo(res.data.game);
@@ -202,7 +213,11 @@ function GameView(props) {
 						className={classes.gameInfoWrapper}
 					>
 						<Grid item>
-							<GameInfo playNextTurn={playNextTurn} gameState={gameState} />
+							<GameInfo
+								playNextTurn={playNextTurn}
+								disabled={fullDisabled}
+								gameState={gameState}
+							/>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -221,11 +236,13 @@ function GameView(props) {
 									sendCard={sendCard}
 									chosenCardId={chosenCardId}
 									disabled={disabled}
+									disabled={fullDisabled || disabled}
 								/>
 							</Grid>
 						))}
 				</Grid>
 			</Grid>
+			<EndGameModal endedObject={gameEnded} />
 		</>
 	);
 }
